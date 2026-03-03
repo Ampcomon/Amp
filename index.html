@@ -3,258 +3,126 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Funoori - 首页</title>
+    <title>Amphile | 股权投资FA & 科技商务代理</title>
     <style>
-        /* --- 6.0 最终上线版：已关联本地图片 --- */
-        
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        body { 
-            font-family: 'Inter', "PingFang SC", "Microsoft YaHei", sans-serif; 
-            line-height: 1.8; 
-            color: #2c3e50; 
-            background-color: #fff;
+        /* 全局样式重置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif;
         }
 
-        a { text-decoration: none; color: inherit; transition: 0.3s; }
-        ul { list-style: none; }
-
-        header { 
-            background: rgba(255, 255, 255, 0.8); 
-            backdrop-filter: blur(10px);
-            position: fixed; 
-            width: 100%; 
-            top: 0; 
-            z-index: 1000; 
-            border-bottom: 1px solid rgba(255,255,255,0.3);
+        body, html {
+            height: 100%;
+            width: 100%;
+            color: #ffffff;
         }
-        .container { max-width: 1100px; margin: 0 auto; padding: 0 40px; }
-        .navbar { display: flex; justify-content: space-between; align-items: center; height: 80px; }
-        
-        .logo { font-size: 24px; font-weight: 700; color: #000; letter-spacing: -0.5px; }
-        .nav-links { display: flex; gap: 40px; }
-        .nav-links a { font-size: 14px; font-weight: 500; color: #333; }
-        .nav-links a:hover { color: #000; }
 
-        /* --- 修改点 1：首屏大图 --- */
-        .hero { 
-            /* 已修改为读取你上传到 images 文件夹下的 main.jpg */
-            background: url('images/main.jpg');
-            
-            background-size: cover; 
-            background-position: center; 
-            height: 95vh; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
+        /* 英雄视差背景区域 */
+        .hero-section {
             position: relative;
+            height: 100vh;
+            width: 100%;
+            /* 背景图片路径：请在同级目录的images文件夹中放入 background.jpg */
+            /* 建议：使用表现“两种截然不同的物质（如水与油/蓝与金）交汇融合”的抽象背景图 */
+            background-image: url('images/background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            align-items: center;
         }
 
-        .hero::after {
-            content: '';
+        /* 暗色遮罩层：确保文字在任何背景图片下都清晰可见 */
+        .overlay {
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.1); 
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* 使用渐变遮罩，左侧偏深，右侧渐浅 */
+            background: linear-gradient(90deg, rgba(10, 20, 40, 0.85) 0%, rgba(10, 20, 40, 0.4) 100%);
             z-index: 1;
         }
 
-        .hero-content { 
-            background: #fff;       
-            padding: 70px 60px;     
-            max-width: 700px;       
-            width: 90%;             
-            text-align: center;     
-            box-shadow: 0 20px 50px rgba(0,0,0,0.2); 
-            position: relative; 
-            z-index: 2; 
+        /* 顶部导航栏 */
+        header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 30px 50px;
+            z-index: 10;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
-        
-        .hero h1 { 
-            font-size: 46px; 
-            line-height: 1.3; 
-            margin-bottom: 24px; 
-            font-weight: 400; 
-            color: #222;
-            letter-spacing: -1px;
-        }
-        
-        .hero-subtitle {
-            font-size: 12px;
-            color: #666;
-            letter-spacing: 4px;
+
+        /* 左上角 Logo */
+        .logo {
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: #ffffff;
             text-transform: uppercase;
-            margin-bottom: 25px;
-            display: inline-block;
-            border-bottom: 1px solid #ddd;
-            padding-bottom: 8px;
         }
 
-        .hero p { 
-            font-size: 16px; 
-            margin-bottom: 40px; 
-            color: #555; 
-            max-width: 500px; 
-            margin-left: auto; margin-right: auto;
+        /* 主体内容区 */
+        .content {
+            position: relative;
+            z-index: 2;
+            padding: 0 10%;
+            max-width: 1200px;
         }
-        
-        .btn { 
-            padding: 16px 45px; 
-            background: #000; 
-            color: #fff; 
-            font-size: 14px; 
+
+        .slogan {
+            font-size: 64px;
+            font-weight: 800;
+            letter-spacing: 4px;
+            margin-bottom: 20px;
+            background: linear-gradient(120deg, #ffffff, #a8c0ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0px 4px 15px rgba(0,0,0,0.3);
+        }
+
+        .description {
+            font-size: 20px;
+            line-height: 1.6;
+            font-weight: 300;
+            margin-bottom: 40px;
+            color: #e0e0e0;
+            max-width: 600px;
             letter-spacing: 1px;
-            transition: 0.3s; 
-            border: 1px solid #000;
-            display: inline-block;
-        }
-        .btn:hover { background: #333; transform: translateY(-2px); }
-
-        /* 核心业务 */
-        .section { padding: 120px 0; }
-        .section-header { margin-bottom: 80px; text-align: center; }
-        .section-header h2 { font-size: 32px; font-weight: 400; margin-bottom: 15px; }
-        .section-header .line { width: 40px; height: 2px; background: #000; margin: 0 auto; }
-
-        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px; }
-        
-        .service-card { 
-            background: #fff; 
-            padding: 40px 30px; 
-            border: 1px solid #f0f0f0;
-            transition: 0.4s; 
-            position: relative;
-        }
-        .service-card:hover { 
-            border-color: #aaa; 
-            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
-            transform: translateY(-5px); 
-        }
-        
-        .service-num { 
-            font-size: 14px; font-weight: bold; color: #ccc; 
-            margin-bottom: 20px; display: block;
-        }
-        .service-card h3 { margin-bottom: 15px; font-size: 18px; font-weight: 600; }
-        .service-card p { font-size: 14px; color: #777; line-height: 1.6; }
-
-        /* 关于我们 */
-        .about { background: #fafafa; }
-        .about-content { display: flex; align-items: center; gap: 80px; }
-        
-        /* --- 修改点 2：关于我们插图 --- */
-        .about-img { 
-            flex: 1; 
-            height: 550px; 
-            /* 已修改为读取你上传到 images 文件夹下的 about.jpg */
-            background: url('images/about.jpg') center/cover;
-            position: relative;
-            box-shadow: 20px 20px 0px #e0e0e0;
         }
 
-        .about-text { flex: 1; }
-        .about-text h3 { font-size: 26px; margin-bottom: 30px; font-weight: 400; }
-        .about-text p { margin-bottom: 20px; color: #666; font-size: 15px; text-align: justify; }
+        /* 分界线装饰 */
+        .divider {
+            width: 60px;
+            height: 4px;
+            background-color: #4facfe;
+            margin-bottom: 30px;
+            border-radius: 2px;
+        }
 
-        /* 页脚 */
-        footer { background: #1a1a1a; color: #aaa; padding: 80px 0; }
-        .footer-content { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 40px; }
-        .footer-logo { font-size: 24px; font-weight: bold; color: #fff; margin-bottom: 20px; display: block;}
-        .footer-info p { font-size: 14px; margin-bottom: 12px; color: #888; }
-        .footer-right p { font-size: 12px; opacity: 0.5; text-align: right; }
-
+        /* 响应式设计：适配手机端 */
         @media (max-width: 768px) {
-            .hero { height: auto; padding: 120px 0 80px; }
-            .hero h1 { font-size: 36px; }
-            .hero-content { padding: 40px 30px; width: 95%; }
-            .about-content { flex-direction: column; }
-            .about-img { width: 100%; height: 300px; box-shadow: none; margin-bottom: 30px; }
-            .nav-links { display: none; }
-            .footer-right p { text-align: left; margin-top: 20px; }
+            header {
+                padding: 20px;
+            }
+            .logo {
+                font-size: 24px;
+            }
+            .slogan {
+                font-size: 40px;
+            }
+            .description {
+                font-size: 16px;
+            }
+            .content {
+                padding: 0 5%;
+            }
         }
     </style>
 </head>
-<body>
-
-    <header>
-        <div class="container navbar">
-            <div class="logo">Funoori</div>
-            <nav>
-                <ul class="nav-links">
-                    <li><a href="#home">首页</a></li>
-                    <li><a href="#services">解决方案</a></li>
-                    <li><a href="#about">关于我们</a></li>
-                    <li><a href="#contact">联系我们</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
-
-    <section id="home" class="hero">
-        <div class="hero-content">
-            <span class="hero-subtitle">ART & TECHNOLOGY</span>
-            <h1>重塑空间与<br>感知的边界</h1> 
-            <p>Funoori 致力于以创新技术驱动当代艺术收藏，<br>并为公共美学空间提供数字化介入方案。</p>
-            <br>
-            <a href="#contact" class="btn">探索解决方案</a>
-        </div>
-    </section>
-
-    <section id="services" class="section">
-        <div class="container">
-            <div class="section-header">
-                <h2>技术与艺术的融合</h2>
-                <div class="line"></div>
-            </div>
-            
-            <div class="services-grid">
-                <div class="service-card">
-                    <span class="service-num">01 /</span>
-                    <h3>数字化艺术资产配置</h3>
-                    <p>依托大数据评估模型，为机构与个人藏家提供精准的当代艺术品资产配置与交易技术支持。</p>
-                </div>
-                <div class="service-card">
-                    <span class="service-num">02 /</span>
-                    <h3>艺术咨询技术服务</h3>
-                    <p>利用 AR/VR 可视化技术，提供沉浸式的艺术陈列模拟咨询，让决策更具前瞻性。</p>
-                </div>
-                <div class="service-card">
-                    <span class="service-num">03 /</span>
-                    <h3>公共艺术智能介入</h3>
-                    <p>针对城市商业空间，提供从算法生成艺术到智能互动装置的整体公共艺术设计方案。</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="about" class="section about">
-        <div class="container about-content">
-            <div class="about-img">
-                </div>
-            <div class="about-text">
-                <h3>Funoori · 北京</h3>
-                <p>Funoori 是一家艺术科技公司。我们不只是一家咨询机构，更是一个将科技逻辑注入美学产业的创新实验室。</p>
-                <p>在这个数字化重塑一切的时代，我们试图打破传统画廊的物理边界。通过技术手段，我们链接全球当代艺术资源，并以理性的科技视角，为城市公共空间与私人收藏领域提供最具生命力的美学方案。</p>
-            </div>
-        </div>
-    </section>
-
-    <footer id="contact">
-        <div class="container footer-content">
-            <div class="footer-left">
-                <span class="footer-logo">Funoori</span>
-                <div class="footer-info">
-                    <p>北京市朝阳区</p>
-                    <p>info@funoori.com</p>
-                    <p>+86 010-0000 0000</p>
-                </div>
-            </div>
-            <div class="footer-right">
-                <p>&copy; 2025 Funoori Technology Co., Ltd. <br>All Rights Reserved.</p>
-            </div>
-        </div>
-    </footer>
-
-</body>
-</html>
