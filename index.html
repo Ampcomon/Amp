@@ -218,30 +218,49 @@
         }
 
         /* -------------------------------------------------------------
-           响应式设计：手机端适配
+           响应式设计：手机端适配 (关键修改区域)
            ------------------------------------------------------------- */
         @media (max-width: 768px) {
-            header { padding: 30px 20px; }
-            .nav-menu ul { gap: 20px; }
-            .nav-menu a { font-size: 13px; }
-            .hero-background-img { object-position: 70% center; }
-            .slogan { font-size: 42px; letter-spacing: 4px; }
+            /* 1. 修复导航栏拥挤换行问题 */
+            header { 
+                padding: 30px 10%; /* 与下方文字左对齐 */
+                flex-direction: column; /* 让 Logo 和菜单上下排列 */
+                align-items: flex-start; /* 整体靠左对齐 */
+                gap: 20px; /* Logo 和菜单之间的垂直间距 */
+            }
+            .logo { font-size: 24px; }
+            .nav-menu ul { 
+                gap: 20px; /* 菜单项之间的水平间距 */
+            }
+            .nav-menu a { 
+                font-size: 14px; 
+                white-space: nowrap; /* 强制菜单文字不换行 */
+            }
+            
+            /* 2. 修复 Slogan 折行问题 */
+            .slogan { 
+                font-size: 32px; /* 缩小字号 */
+                letter-spacing: 2px; /* 缩小字间距 */
+                white-space: nowrap; /* 强制 Slogan 保持在同一行 */
+            }
             .description { font-size: 16px; }
             
-            section { padding: 100px 5%; }
+            section { padding: 100px 10%; }
             .services-grid { grid-template-columns: 1fr; gap: 50px; }
             .about-text { font-size: 20px; }
-            .contact-email { font-size: 28px; }
+            /* 防止邮箱太长在手机端溢出屏幕 */
+            .contact-email { font-size: 26px; word-break: break-all; } 
         }
     </style>
 </head>
 <body>
 
     <div class="hero-section" id="home">
-<picture>
-    <source media="(max-width: 768px)" srcset="images/main-mobile.jpg">
-    <img src="images/main.jpg" alt="Amphile Corporate Background" class="hero-background-img">
-</picture>        <div class="overlay"></div>
+        <picture>
+            <source media="(max-width: 768px)" srcset="images/main-mobile.jpg">
+            <img src="images/main.jpg" alt="Amphile Corporate Background" class="hero-background-img">
+        </picture>
+        <div class="overlay"></div>
         <header>
             <div class="logo">Amphile</div>
             <nav class="nav-menu">
