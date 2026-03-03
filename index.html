@@ -19,7 +19,7 @@
         }
 
         body {
-            /* 整体使用极简的深色背景 */
+            /* 整体深色底色，作为后备颜色 */
             background-color: #080b12; 
             color: #ffffff;
             overflow-x: hidden;
@@ -49,6 +49,7 @@
             z-index: 0;
         }
 
+        /* 左右渐变遮罩：确保文案清晰 */
         .overlay {
             position: absolute;
             top: 0;
@@ -57,6 +58,18 @@
             height: 100%;
             background: linear-gradient(90deg, rgba(8, 11, 18, 0.95) 0%, rgba(8, 11, 18, 0.4) 100%);
             z-index: 1;
+        }
+
+        /* 底部垂直渐变遮罩：让图片无缝融入下方的服务板块 */
+        .hero-section::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 150px;
+            background: linear-gradient(to bottom, rgba(8,11,18,0) 0%, #080b12 100%);
+            z-index: 2;
         }
 
         /* 顶部导航栏 */
@@ -101,7 +114,7 @@
         /* 首屏核心内容区 */
         .content {
             position: relative;
-            z-index: 2;
+            z-index: 3;
             padding: 0 10%;
             max-width: 1200px;
         }
@@ -132,14 +145,35 @@
         }
 
         /* -------------------------------------------------------------
-           主体板块通用样式 (极简留白)
+           主体板块通用样式 (背景全宽铺满，内容居中)
            ------------------------------------------------------------- */
         section {
+            width: 100%; /* 确保颜色背景铺满整个屏幕宽度 */
             padding: 150px 10%;
-            max-width: 1200px;
+        }
+
+        .section-container {
+            max-width: 1200px; /* 约束文字内容的宽度 */
             margin: 0 auto;
         }
 
+        /* --- 核心：各板块专属渐变背景过渡 --- */
+        #services {
+            /* 从深黑过渡到微弱的暗靛紫 (代表科技) */
+            background: linear-gradient(to bottom, #080b12 0%, #151624 100%);
+        }
+
+        #about {
+            /* 从暗靛紫过渡到低调的暗古铜金 (代表资本) */
+            background: linear-gradient(to bottom, #151624 0%, #1f1917 100%);
+        }
+
+        #contact {
+            /* 从暗古铜金平缓过渡回深黑 (完美收尾) */
+            background: linear-gradient(to bottom, #1f1917 0%, #080b12 100%);
+        }
+
+        /* 板块内通用排版 */
         .section-title {
             font-size: 14px;
             color: #d1b99a;
@@ -195,10 +229,10 @@
         }
 
         /* -------------------------------------------------------------
-           联系我们板块 (兼作页脚)
+           联系我们板块
            ------------------------------------------------------------- */
         #contact {
-            padding-bottom: 100px;
+            padding-bottom: 150px; /* 给底部留出呼吸空间 */
             text-align: center;
         }
 
@@ -208,47 +242,36 @@
             color: #ffffff;
             text-decoration: none;
             letter-spacing: 3px;
-            transition: color 0.4s ease;
+            transition: color 0.4s ease, transform 0.4s ease;
             display: inline-block;
             margin-top: 20px;
         }
 
         .contact-email:hover {
             color: #d1b99a;
+            transform: translateY(-2px); /* 悬停时微微上浮效果 */
         }
 
         /* -------------------------------------------------------------
-           响应式设计：手机端适配 (关键修改区域)
+           响应式设计：手机端适配
            ------------------------------------------------------------- */
         @media (max-width: 768px) {
-            /* 1. 修复导航栏拥挤换行问题 */
             header { 
-                padding: 30px 10%; /* 与下方文字左对齐 */
-                flex-direction: column; /* 让 Logo 和菜单上下排列 */
-                align-items: flex-start; /* 整体靠左对齐 */
-                gap: 20px; /* Logo 和菜单之间的垂直间距 */
+                padding: 30px 10%; 
+                flex-direction: column; 
+                align-items: flex-start; 
+                gap: 20px; 
             }
             .logo { font-size: 24px; }
-            .nav-menu ul { 
-                gap: 20px; /* 菜单项之间的水平间距 */
-            }
-            .nav-menu a { 
-                font-size: 14px; 
-                white-space: nowrap; /* 强制菜单文字不换行 */
-            }
+            .nav-menu ul { gap: 20px; }
+            .nav-menu a { font-size: 14px; white-space: nowrap; }
             
-            /* 2. 修复 Slogan 折行问题 */
-            .slogan { 
-                font-size: 32px; /* 缩小字号 */
-                letter-spacing: 2px; /* 缩小字间距 */
-                white-space: nowrap; /* 强制 Slogan 保持在同一行 */
-            }
+            .slogan { font-size: 32px; letter-spacing: 2px; white-space: nowrap; }
             .description { font-size: 16px; }
             
             section { padding: 100px 10%; }
             .services-grid { grid-template-columns: 1fr; gap: 50px; }
             .about-text { font-size: 20px; }
-            /* 防止邮箱太长在手机端溢出屏幕 */
             .contact-email { font-size: 26px; word-break: break-all; } 
         }
     </style>
@@ -281,37 +304,43 @@
     </div>
 
     <section id="services">
-        <h2 class="section-title">业务聚焦 / Services</h2>
-        <div class="services-grid">
-            <div class="service-item">
-                <span class="service-number">01</span>
-                <h3>技术行业洞察</h3>
-                <p>穿透表象，捕捉前沿科技脉络，以深度研究解构产业底层逻辑。</p>
-            </div>
-            <div class="service-item">
-                <span class="service-number">02</span>
-                <h3>商业机遇发掘</h3>
-                <p>在复杂的商业语境中剥茧抽丝，精准定位具有爆发潜力的核心变量。</p>
-            </div>
-            <div class="service-item">
-                <span class="service-number">03</span>
-                <h3>资金资源匹配</h3>
-                <p>链接顶层资本与关键产业要素，促成异质资源的最优配置与价值共振。</p>
+        <div class="section-container">
+            <h2 class="section-title">业务聚焦 / Services</h2>
+            <div class="services-grid">
+                <div class="service-item">
+                    <span class="service-number">01</span>
+                    <h3>技术行业洞察</h3>
+                    <p>穿透表象，捕捉前沿科技脉络，以深度研究解构产业底层逻辑。</p>
+                </div>
+                <div class="service-item">
+                    <span class="service-number">02</span>
+                    <h3>商业机遇发掘</h3>
+                    <p>在复杂的商业语境中剥茧抽丝，精准定位具有爆发潜力的核心变量。</p>
+                </div>
+                <div class="service-item">
+                    <span class="service-number">03</span>
+                    <h3>资金资源匹配</h3>
+                    <p>链接顶层资本与关键产业要素，促成异质资源的最优配置与价值共振。</p>
+                </div>
             </div>
         </div>
     </section>
 
     <section id="about">
-        <h2 class="section-title">关于我们 / About</h2>
-        <p class="about-text">
-            深耕科技行业，始终走在新技术的最前沿。<br>
-            我们致力于以深厚的产业经验为锚，以精准的资源网络为翼，持续为创新者赋能。
-        </p>
+        <div class="section-container">
+            <h2 class="section-title">关于我们 / About</h2>
+            <p class="about-text">
+                深耕科技行业，始终走在新技术的最前沿。<br>
+                我们致力于以深厚的产业经验为锚，以精准的资源网络为翼，持续为创新者赋能。
+            </p>
+        </div>
     </section>
 
     <section id="contact">
-        <h2 class="section-title">开启共振 / Contact</h2>
-        <a href="mailto:info@amphile.com" class="contact-email">info@amphile.com</a>
+        <div class="section-container">
+            <h2 class="section-title">开启共振 / Contact</h2>
+            <a href="mailto:info@amphile.com" class="contact-email">info@amphile.com</a>
+        </div>
     </section>
 
 </body>
