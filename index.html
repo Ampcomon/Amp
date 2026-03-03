@@ -17,24 +17,34 @@
             height: 100%;
             width: 100%;
             color: #ffffff;
+            overflow-x: hidden; /* 防止横向滚动条 */
         }
 
-        /* 英雄视差背景区域 */
+        /* 英雄视差背景区域 - 优化适配逻辑 */
         .hero-section {
             position: relative;
             height: 100vh;
             width: 100%;
-            /* 背景图片路径：请在同级目录的images文件夹中放入 background.jpg */
-            /* 建议：使用表现“两种截然不同的物质（如水与油/蓝与金）交汇融合”的抽象背景图 */
-            background-image: url('images/background.jpg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
             display: flex;
             align-items: center;
+            overflow: hidden; /* 核心：裁剪溢出部分 */
         }
 
-        /* 暗色遮罩层：确保文字在任何背景图片下都清晰可见 */
+        /* 核心适配图片样式 */
+        .hero-background-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* 核心：保持比例填充 */
+            
+            /* 电脑端默认定位：居中对齐，左侧显示科技网格，右侧显示流体 */
+            object-position: center center; 
+            z-index: 0;
+        }
+
+        /* 暗色遮罩层：确保文字清晰 */
         .overlay {
             position: absolute;
             top: 0;
@@ -42,7 +52,7 @@
             width: 100%;
             height: 100%;
             /* 使用渐变遮罩，左侧偏深，右侧渐浅 */
-            background: linear-gradient(90deg, rgba(10, 20, 40, 0.85) 0%, rgba(10, 20, 40, 0.4) 100%);
+            background: linear-gradient(90deg, rgba(10, 20, 40, 0.9) 0%, rgba(10, 20, 40, 0.5) 100%);
             z-index: 1;
         }
 
@@ -68,6 +78,28 @@
             text-transform: uppercase;
         }
 
+        /* 导航菜单整体样式 */
+        .nav-menu ul {
+            display: flex;
+            list-style: none; /* 去除列表默认的圆点 */
+            gap: 40px; /* 菜单项之间的间距 */
+        }
+
+        /* 导航链接文本样式 */
+        .nav-menu a {
+            color: #ffffff;
+            text-decoration: none; /* 去除下划线 */
+            font-size: 16px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            transition: color 0.3s ease; /* 添加颜色渐变的动画效果 */
+        }
+
+        /* 鼠标悬停时的效果（使用不饱和的古铜金） */
+        .nav-menu a:hover {
+            color: #d1b99a; 
+        }
+
         /* 主体内容区 */
         .content {
             position: relative;
@@ -81,7 +113,7 @@
             font-weight: 800;
             letter-spacing: 4px;
             margin-bottom: 20px;
-            background: linear-gradient(120deg, #ffffff, #a8c0ff);
+            background: linear-gradient(120deg, #ffffff, #d1b99a);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             text-shadow: 0px 4px 15px rgba(0,0,0,0.3);
@@ -101,7 +133,7 @@
         .divider {
             width: 60px;
             height: 4px;
-            background-color: #4facfe;
+            background-color: #d1b99a;
             margin-bottom: 30px;
             border-radius: 2px;
         }
@@ -116,13 +148,58 @@
             }
             .slogan {
                 font-size: 40px;
+                letter-spacing: 2px;
             }
             .description {
                 font-size: 16px;
+                max-width: 90%;
             }
             .content {
                 padding: 0 5%;
             }
+
+            /* 核心技术适配：手机竖屏 (Portrait) */
+            .hero-background-img {
+                /* 在手机端，将裁剪区域水平向右移动到图像的 70% 处，让核心故事居中显示。 */
+                object-position: 70% center; 
+            }
+
+            .nav-menu ul {
+                gap: 15px;
+            }
+            .nav-menu a {
+                font-size: 14px;
+            }
         }
     </style>
 </head>
+<body>
+
+    <div class="hero-section">
+        <img src="images/main.jpg" alt="Amphile Corporate Background" class="hero-background-img">
+
+        <div class="overlay"></div>
+
+        <header>
+            <div class="logo">Amphile</div>
+            <nav class="nav-menu">
+                <ul>
+                    <li><a href="#home">首页</a></li>
+                    <li><a href="#services">服务</a></li>
+                    <li><a href="#about">关于我们</a></li>
+                    <li><a href="#contact">联系我们</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <div class="content">
+            <div class="divider"></div>
+            <h1 class="slogan">以同频，致超幅</h1>
+            <p class="description">
+                致力于打破边界。我们是资本与科技的“双亲分子”，深耕股权投资FA与科技行业商务代理，精准链接核心资源，创造指数级价值。
+            </p>
+        </div>
+    </div>
+
+</body>
+</html>
