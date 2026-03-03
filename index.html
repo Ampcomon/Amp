@@ -13,46 +13,49 @@
             font-family: 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif;
         }
 
-        body, html {
-            height: 100%;
-            width: 100%;
-            color: #ffffff;
-            overflow-x: hidden; /* 防止横向滚动条 */
+        /* 开启平滑滚动效果 */
+        html {
+            scroll-behavior: smooth; 
         }
 
-        /* 英雄视差背景区域 - 优化适配逻辑 */
+        body {
+            /* 整体使用极简的深色背景 */
+            background-color: #080b12; 
+            color: #ffffff;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* -------------------------------------------------------------
+           首屏：英雄视差背景区域 
+           ------------------------------------------------------------- */
         .hero-section {
             position: relative;
             height: 100vh;
             width: 100%;
             display: flex;
             align-items: center;
-            overflow: hidden; /* 核心：裁剪溢出部分 */
+            overflow: hidden;
         }
 
-        /* 核心适配图片样式 */
         .hero-background-img {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover; /* 核心：保持比例填充 */
-            
-            /* 电脑端默认定位：居中对齐，左侧显示科技网格，右侧显示流体 */
+            object-fit: cover;
             object-position: center center; 
             z-index: 0;
         }
 
-        /* 暗色遮罩层：确保文字清晰 */
         .overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            /* 使用渐变遮罩，左侧偏深，右侧渐浅 */
-            background: linear-gradient(90deg, rgba(10, 20, 40, 0.9) 0%, rgba(10, 20, 40, 0.5) 100%);
+            background: linear-gradient(90deg, rgba(8, 11, 18, 0.95) 0%, rgba(8, 11, 18, 0.4) 100%);
             z-index: 1;
         }
 
@@ -62,45 +65,40 @@
             top: 0;
             left: 0;
             width: 100%;
-            padding: 30px 50px;
+            padding: 40px 60px;
             z-index: 10;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        /* 左上角 Logo */
         .logo {
-            font-size: 32px;
+            font-size: 28px;
             font-weight: 700;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
             color: #ffffff;
-            /* 移除了 text-transform 属性，保持首字母大写 Amphile */
         }
 
-        /* 导航菜单整体样式 */
         .nav-menu ul {
             display: flex;
-            list-style: none; /* 去除列表默认的圆点 */
-            gap: 40px; /* 菜单项之间的间距 */
+            list-style: none;
+            gap: 50px;
         }
 
-        /* 导航链接文本样式 */
         .nav-menu a {
-            color: #ffffff;
-            text-decoration: none; /* 去除下划线 */
-            font-size: 16px;
-            font-weight: 500;
-            letter-spacing: 1px;
-            transition: color 0.3s ease; /* 添加颜色渐变的动画效果 */
+            color: #e0e0e0;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 400;
+            letter-spacing: 2px;
+            transition: color 0.4s ease;
         }
 
-        /* 鼠标悬停时的效果（使用不饱和的古铜金） */
         .nav-menu a:hover {
-            color: #d1b99a; 
+            color: #d1b99a; /* muted gold */
         }
 
-        /* 主体内容区 */
+        /* 首屏核心内容区 */
         .content {
             position: relative;
             z-index: 2;
@@ -109,77 +107,139 @@
         }
 
         .slogan {
-            font-size: 64px;
-            font-weight: 800;
-            letter-spacing: 4px;
-            margin-bottom: 20px;
+            font-size: 60px;
+            font-weight: 700;
+            letter-spacing: 6px;
+            margin-bottom: 30px;
             background: linear-gradient(120deg, #ffffff, #d1b99a);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0px 4px 15px rgba(0,0,0,0.3);
         }
 
         .description {
-            font-size: 20px;
-            line-height: 1.6;
+            font-size: 18px;
             font-weight: 300;
-            margin-bottom: 40px;
-            color: #e0e0e0;
-            max-width: 600px;
-            letter-spacing: 1px;
+            color: #b0b5be;
+            max-width: 550px;
+            letter-spacing: 1.5px;
         }
 
-        /* 分界线装饰 */
         .divider {
-            width: 60px;
-            height: 4px;
+            width: 40px;
+            height: 2px;
             background-color: #d1b99a;
-            margin-bottom: 30px;
-            border-radius: 2px;
+            margin-bottom: 40px;
         }
 
-        /* 响应式设计：适配手机端 */
+        /* -------------------------------------------------------------
+           主体板块通用样式 (极简留白)
+           ------------------------------------------------------------- */
+        section {
+            padding: 150px 10%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 14px;
+            color: #d1b99a;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 60px;
+            font-weight: 400;
+        }
+
+        /* -------------------------------------------------------------
+           服务板块 (网格布局)
+           ------------------------------------------------------------- */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 60px;
+        }
+
+        .service-item h3 {
+            font-size: 20px;
+            font-weight: 400;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+            color: #ffffff;
+        }
+
+        .service-item p {
+            font-size: 15px;
+            font-weight: 300;
+            color: #8c93a1;
+            letter-spacing: 1px;
+            line-height: 1.8;
+        }
+
+        .service-number {
+            font-size: 12px;
+            color: #4a5568;
+            margin-bottom: 15px;
+            display: block;
+            font-family: monospace;
+        }
+
+        /* -------------------------------------------------------------
+           关于我们板块
+           ------------------------------------------------------------- */
+        .about-text {
+            font-size: 28px;
+            font-weight: 300;
+            color: #e2e8f0;
+            line-height: 1.8;
+            max-width: 900px;
+            letter-spacing: 2px;
+        }
+
+        /* -------------------------------------------------------------
+           联系我们板块 (兼作页脚)
+           ------------------------------------------------------------- */
+        #contact {
+            padding-bottom: 100px;
+            text-align: center;
+        }
+
+        .contact-email {
+            font-size: 40px;
+            font-weight: 300;
+            color: #ffffff;
+            text-decoration: none;
+            letter-spacing: 3px;
+            transition: color 0.4s ease;
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+        .contact-email:hover {
+            color: #d1b99a;
+        }
+
+        /* -------------------------------------------------------------
+           响应式设计：手机端适配
+           ------------------------------------------------------------- */
         @media (max-width: 768px) {
-            header {
-                padding: 20px;
-            }
-            .logo {
-                font-size: 24px;
-            }
-            .slogan {
-                font-size: 40px;
-                letter-spacing: 2px;
-            }
-            .description {
-                font-size: 16px;
-                max-width: 90%;
-            }
-            .content {
-                padding: 0 5%;
-            }
-
-            /* 核心技术适配：手机竖屏 (Portrait) */
-            .hero-background-img {
-                /* 在手机端，将裁剪区域水平向右移动到图像的 70% 处，让核心故事居中显示。 */
-                object-position: 70% center; 
-            }
-
-            .nav-menu ul {
-                gap: 15px;
-            }
-            .nav-menu a {
-                font-size: 14px;
-            }
+            header { padding: 30px 20px; }
+            .nav-menu ul { gap: 20px; }
+            .nav-menu a { font-size: 13px; }
+            .hero-background-img { object-position: 70% center; }
+            .slogan { font-size: 42px; letter-spacing: 4px; }
+            .description { font-size: 16px; }
+            
+            section { padding: 100px 5%; }
+            .services-grid { grid-template-columns: 1fr; gap: 50px; }
+            .about-text { font-size: 20px; }
+            .contact-email { font-size: 28px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="hero-section">
+    <div class="hero-section" id="home">
         <img src="images/main.jpg" alt="Amphile Corporate Background" class="hero-background-img">
-
         <div class="overlay"></div>
-
         <header>
             <div class="logo">Amphile</div>
             <nav class="nav-menu">
@@ -190,7 +250,6 @@
                 </ul>
             </nav>
         </header>
-
         <div class="content">
             <div class="divider"></div>
             <h1 class="slogan">以同频，致超幅</h1>
@@ -199,6 +258,40 @@
             </p>
         </div>
     </div>
+
+    <section id="services">
+        <h2 class="section-title">业务聚焦 / Services</h2>
+        <div class="services-grid">
+            <div class="service-item">
+                <span class="service-number">01</span>
+                <h3>技术行业洞察</h3>
+                <p>穿透表象，捕捉前沿科技脉络，以深度研究解构产业底层逻辑。</p>
+            </div>
+            <div class="service-item">
+                <span class="service-number">02</span>
+                <h3>商业机遇发掘</h3>
+                <p>在复杂的商业语境中剥茧抽丝，精准定位具有爆发潜力的核心变量。</p>
+            </div>
+            <div class="service-item">
+                <span class="service-number">03</span>
+                <h3>资金资源匹配</h3>
+                <p>链接顶层资本与关键产业要素，促成异质资源的最优配置与价值共振。</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="about">
+        <h2 class="section-title">关于我们 / About</h2>
+        <p class="about-text">
+            深耕科技行业，始终走在新技术的最前沿。<br>
+            我们致力于以深厚的产业经验为锚，以精准的资源网络为翼，持续为创新者赋能。
+        </p>
+    </section>
+
+    <section id="contact">
+        <h2 class="section-title">开启共振 / Contact</h2>
+        <a href="mailto:info@amphile.com" class="contact-email">info@amphile.com</a>
+    </section>
 
 </body>
 </html>
